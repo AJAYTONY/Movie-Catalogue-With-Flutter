@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:movie_catalouge_with_flutter/constant/constant_config.dart';
 import 'package:movie_catalouge_with_flutter/data/models/cast_or_crew_model.dart';
 import 'package:movie_catalouge_with_flutter/data/models/movie_detail_response.dart';
@@ -15,7 +16,7 @@ abstract class MovieRepository {
 
   Future<MovieDetailResponse?>? getMovieDetail(String movieId);
 
-  Future<List<CastOrCrewModel>?> getCastOrCrew(String movieId);
+  Future<CastOrCrewModel?> getCastOrCrew(String movieId);
 
   Future<List<ReviewResults>?> getReviewList(String movieId);
 
@@ -69,7 +70,7 @@ class MovieRepositoryImpl extends MovieRepository {
   }
 
   @override
-  Future<List<CastOrCrewModel>?> getCastOrCrew(String movieId) async {
+  Future<CastOrCrewModel?> getCastOrCrew(String movieId) async {
     var movieTypes = 'now_playing';
     var response = await client.get(Uri.parse(
         'https://api.themoviedb.org/3/movie/760161/credits?api_key=139ebb0ddadbbb89e5f868d4b6e8448a'));
@@ -77,8 +78,10 @@ class MovieRepositoryImpl extends MovieRepository {
     if (response.statusCode == 200) {
       var data = json.decode(response.body);
 
-      List<CastOrCrewModel>? castOrCrewModel =
-          CastOrCrewModel.fromJson(data).cast?.cast<CastOrCrewModel>();
+      debugPrint("cast crew model $data");
+
+      CastOrCrewModel? castOrCrewModel =
+          CastOrCrewModel.fromJson(data);
 
       return castOrCrewModel;
     } else {

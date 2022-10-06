@@ -12,7 +12,7 @@ class CastCrewBloc extends Bloc<CastCrewEvent, CastCrewState> {
     on<CastCrewEvent>((event, emit) async {
       if (event is FetchCastCrewEvent) {
         emit(CastCrewLoadingState());
-        List<CastOrCrewModel>? castOrCrewModel =
+        CastOrCrewModel? castOrCrewModel =
         await movieRepository.getCastOrCrew(event.movieId);
 
         if (castOrCrewModel == null) {

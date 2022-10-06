@@ -25,7 +25,9 @@ class _SimilarResultScreenState extends State<SimilarResultScreen> {
   }
   @override
   Widget build(BuildContext context) {
-     return SizedBox(
+    final width = MediaQuery.of(context).size.width;
+
+    return SizedBox(
       // margin: EdgeInsets.all(16),
       // alignment: Alignment.center,
       //height: 70,
@@ -40,7 +42,7 @@ class _SimilarResultScreenState extends State<SimilarResultScreen> {
             return CircularProgressIndicator();
           } else if (state is SimilarResultLoadedState) {
             print("Ajay:: Loaded Similar ${state.movieId![0].title}");
-            return similarContainer(state.movieId!);
+            return similarContainer(state.movieId!,width);
           } else if (state is SimilarResultErrorState) {
             print("Error Similar");
             return Text("Feild to load !");
@@ -52,43 +54,48 @@ class _SimilarResultScreenState extends State<SimilarResultScreen> {
   }
 }
 
-similarContainer(List<SimilarResults> similarResult) {
-  return Expanded(
+similarContainer(List<SimilarResults> similarResult,double width) {
+
+  return Container(
+    height: width / 2,
+    width: width,
+    margin: EdgeInsets.only(bottom: 8.0),
     child: ListView.builder(
-      shrinkWrap: true,
+     // shrinkWrap: true,
       scrollDirection: Axis.horizontal,
       itemCount: similarResult.length,
       itemBuilder: (context, index) {
         return Padding(
-          padding: EdgeInsets.only(left: 16, right: 16, top: 8),
+          padding: EdgeInsets.only(left: 16, top: 8),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Hero(
                 tag:
                 "https://image.tmdb.org/t/p/w1280${similarResult[index].id}",
                 child: Container(
-                  height: MediaQuery.of(context).size.height * 0.09,
+                  height: MediaQuery.of(context).size.height * 0.20,
+                  width: 100,
                   color: Color(0xFF333333),
                   child: kIsWeb
                       ? Image.network(
                       'https://image.tmdb.org/t/p/w1280${similarResult[index].posterPath}',
-                      width: double.infinity,
+                      width: width,
                       fit: BoxFit.cover)
                       : CachedNetworkImage(
-                    width: double.infinity,
+                    width: width,
                     imageUrl:
                     'https://image.tmdb.org/t/p/w1280${similarResult[index].posterPath}',
-                    fit: BoxFit.fill,
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),
 
-              SizedBox(
-                width: 8,
-              ),
+              // SizedBox(
+              //   width: 8,
+              // ),
               Txt(similarResult[index].title.toString(),
-                  color: Colors.grey.shade400,
+                  color: Colors.white,
                   fontWeight: FontWeight.w300,
                   fontFamily: "Poppins-Semibold",
                   fontSize: MediaQuery.of(context).size.width * 0.040)

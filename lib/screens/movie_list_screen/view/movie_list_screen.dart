@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_catalouge_with_flutter/screens/movie_list_screen/bloc/movie_list_bloc.dart';
 import 'package:movie_catalouge_with_flutter/screens/movie_list_screen/view/HomeScreen.dart';
 import 'package:movie_catalouge_with_flutter/screens/network_error.dart';
+import 'package:movie_catalouge_with_flutter/screens/search_Sceen/view/search_screen.dart';
 import 'package:shimmer/shimmer.dart';
 
 class MovieListScreenHome extends StatefulWidget {
@@ -76,14 +77,7 @@ class _MovieListScreenHomeState extends State<MovieListScreenHome> {
                   fontFamily: "Poppins-Bold",
                   fontWeight: FontWeight.w500),
             ),
-            // Text(
-            //   ".",
-            //   style: TextStyle(
-            //     color: Colors.redAccent,
-            //     fontSize: width * 0.08,
-            //     fontFamily: "Poppins-Bold",
-            //   ),
-            // ),
+
           ],
         ),
         IconButton(
@@ -91,10 +85,10 @@ class _MovieListScreenHomeState extends State<MovieListScreenHome> {
           color: Colors.white,
           iconSize: width * 0.08,
           onPressed: () {
-            // Navigator.push(context,
-            //     MaterialPageRoute(builder: (BuildContext context) {
-            //       return SearchScreen();
-            //     }));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (BuildContext context) {
+                  return SearchScreen();
+                }));
           },
         )
       ],

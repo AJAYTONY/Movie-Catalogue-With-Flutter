@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_catalouge_with_flutter/data/models/movie_list_response.dart';
 import 'package:movie_catalouge_with_flutter/screens/cast_or_crew_screen/bloc/cast_crew_bloc.dart';
 import 'package:movie_catalouge_with_flutter/screens/movie_detail_screen/bloc/movie_detail_bloc.dart';
+import 'package:movie_catalouge_with_flutter/screens/movie_list_screen/view/HomeScreen.dart';
+import 'package:movie_catalouge_with_flutter/screens/movie_list_screen/view/movie_list_screen.dart';
 import 'package:movie_catalouge_with_flutter/screens/network_error.dart';
 import 'package:movie_catalouge_with_flutter/screens/review_screen/bloc/review_bloc.dart';
 import 'package:movie_catalouge_with_flutter/widget/common_progress_bar.dart';
@@ -53,7 +55,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              appBar(width),
+              appBar(width,context),
               SizedBox(
                 height: 10,
               ),
@@ -87,22 +89,31 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
   }
 }
 
-Widget appBar(double width) {
+Widget appBar(double width, BuildContext context) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.center,
+    crossAxisAlignment: CrossAxisAlignment.center,
     children: <Widget>[
-      Row(
-        children: <Widget>[
-          Text(
-            "Movie Detail ",
-            style: TextStyle(
-                color: Colors.white,
-                fontSize: width * 0.08,
-                fontFamily: "Poppins-Bold",
-                fontWeight: FontWeight.w600),
-          ),
-        ],
+      IconButton(
+        icon: Icon(Icons.arrow_back),
+        color: Colors.white,
+        iconSize: width * 0.08,
+        onPressed: () {
+          Navigator.pop(context);
+        },
       ),
+      Spacer(),
+      Align(
+        alignment: Alignment.topCenter,
+        child: Text("Movie Detail",
+          style: TextStyle(
+              color: Colors.white,
+              fontSize: width * 0.08,
+              fontFamily: "Poppins-Bold",
+              fontWeight: FontWeight.w500),
+        ),
+      ),
+      Spacer(),
     ],
   );
 }

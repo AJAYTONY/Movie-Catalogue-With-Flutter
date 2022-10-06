@@ -7,7 +7,7 @@ class CastCrewInitialState extends CastCrewState{}
 class CastCrewLoadingState extends CastCrewState {}
 
 class CastCrewLoadedState extends CastCrewState {
-  List<CastOrCrewModel>? castOrCrewModel;
+  CastOrCrewModel? castOrCrewModel;
   CastCrewLoadedState({required this.castOrCrewModel});
 // get moviesList => movies;
 

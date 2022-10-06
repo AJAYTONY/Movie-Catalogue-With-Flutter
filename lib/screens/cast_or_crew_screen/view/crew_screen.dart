@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:movie_catalouge_with_flutter/data/models/cast_or_crew_model.dart';
 import 'package:movie_catalouge_with_flutter/widget/Txt.dart';
 
-class CastCrewScreen extends StatelessWidget {
+class CrewScreen extends StatelessWidget {
   CastOrCrewModel? castOrCrewModel;
 
-  CastCrewScreen(this.castOrCrewModel, {Key? key}) : super(key: key);
+  CrewScreen(this.castOrCrewModel, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class CastCrewScreen extends StatelessWidget {
             width: 5,
           );
         },
-        itemCount: castOrCrewModel!.cast!.length,
+        itemCount: castOrCrewModel!.crew!.length,
         itemBuilder: (context, index) {
           return Column(
             //crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,12 +39,12 @@ class CastCrewScreen extends StatelessWidget {
                 height: MediaQuery.of(context).size.width * 0.15 + 15,
                 width: MediaQuery.of(context).size.width * 0.15,
                 decoration: BoxDecoration(
-                   // borderRadius: BorderRadius.circular(10),
+                  // borderRadius: BorderRadius.circular(10),
                     shape: BoxShape.circle,
                     image: DecorationImage(
                         image: NetworkImage(
                             'https://image.tmdb.org/t/p/w1280${castOrCrewModel!
-                                .cast![index].profilePath.toString()}'),
+                                .crew![index].profilePath.toString()}'),
                         fit: BoxFit.cover),
                     color: Colors.grey),
               ),
@@ -61,7 +61,7 @@ class CastCrewScreen extends StatelessWidget {
               //       fontSize: MediaQuery.of(context).size.width * 0.04),
               // )
               AutoSizeText(
-                castOrCrewModel!.cast![index].name.toString(),
+                castOrCrewModel!.crew![index].name.toString(),
                 maxLines: 2,
                 softWrap: true,
                 overflow: TextOverflow.ellipsis,

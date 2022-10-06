@@ -11,6 +11,7 @@ import 'package:movie_catalouge_with_flutter/screens/review_screen/view/review_s
 import 'package:movie_catalouge_with_flutter/screens/similar_results_Screen/view/similar_result_screen.dart';
 
 import '../../../widget/Txt.dart';
+import '../../cast_or_crew_screen/view/crew_screen.dart';
 import '../../review_screen/view/review_Screen_2.dart';
 
 class MovieDetail extends StatelessWidget {
@@ -166,31 +167,31 @@ class MovieDetail extends StatelessWidget {
             color: Colors.white,
           ),
           Container(
-            margin: EdgeInsets.all(16),
+            margin: EdgeInsets.all(8),
             alignment: Alignment.center,
-            height: 70,
+            height: MediaQuery.of(context).size.height * 0.12,
             width: MediaQuery.of(context).size.width,
-            // child: SingleChildScrollView(
-            //   scrollDirection: Axis.horizontal,
-            //   child: BlocBuilder<CastCrewBloc, CastCrewState>(
-            //     builder: (context, state) {
-            //       if (state is CastCrewInitialState) {
-            //         print("Ajay:: Initial Crew");
-            //         return CircularProgressIndicator();
-            //       } else if (state is CastCrewLoadingState) {
-            //         print("Ajay:: Loading Crew");
-            //         return CircularProgressIndicator();
-            //       } else if (state is CastCrewLoadedState) {
-            //         print("Ajay:: Loaded CastOrCrew ${state.castOrCrewModel!.length}");
-            //         return CastCrewScreen(state.castOrCrewModel);
-            //       } else if (state is CastCrewErrorState) {
-            //         print("Error Crew");
-            //         return Text("Feild to load !");
-            //       }
-            //       return Text('Internet Error Detail');
-            //     },
-            //   ),
-            // ),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: BlocBuilder<CastCrewBloc, CastCrewState>(
+                builder: (context, state) {
+                  if (state is CastCrewInitialState) {
+                    print("Ajay:: Initial Crew");
+                    return CircularProgressIndicator();
+                  } else if (state is CastCrewLoadingState) {
+                    print("Ajay:: Loading Crew");
+                    return CircularProgressIndicator();
+                  } else if (state is CastCrewLoadedState) {
+                    print("Ajay:: Loaded CastOrCrew ${state.castOrCrewModel!.cast!.length}");
+                    return CastCrewScreen(state.castOrCrewModel);
+                  } else if (state is CastCrewErrorState) {
+                    print("Error Crew");
+                    return Text("Feild to load !");
+                  }
+                  return Text('Internet Error Detail');
+                },
+              ),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 16, right: 16, bottom: 4),
@@ -207,18 +208,33 @@ class MovieDetail extends StatelessWidget {
             height: 0.9,
             color: Colors.white,
           ),
-          Container(
-            margin: EdgeInsets.all(16),
-            alignment: Alignment.center,
-            height: 70,
-            width: MediaQuery.of(context).size.width,
-            child: Text('Crew List',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w300,
-                    fontFamily: "Poppins-Medium",
-                    fontSize: MediaQuery.of(context).size.width * 0.05)),
+        Container(
+          margin: EdgeInsets.all(8),
+          alignment: Alignment.center,
+          height: MediaQuery.of(context).size.height * 0.12,
+          width: MediaQuery.of(context).size.width,
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: BlocBuilder<CastCrewBloc, CastCrewState>(
+              builder: (context, state) {
+                if (state is CastCrewInitialState) {
+                  print("Ajay:: Initial Crew");
+                  return CircularProgressIndicator();
+                } else if (state is CastCrewLoadingState) {
+                  print("Ajay:: Loading Crew");
+                  return CircularProgressIndicator();
+                } else if (state is CastCrewLoadedState) {
+                  print("Ajay:: Loaded CastOrCrew ${state.castOrCrewModel!.cast!.length}");
+                  return CrewScreen(state.castOrCrewModel);
+                } else if (state is CastCrewErrorState) {
+                  print("Error Crew");
+                  return Text("Feild to load !");
+                }
+                return Text('Internet Error Detail');
+              },
+            ),
           ),
+        ),
           Padding(
             padding: const EdgeInsets.only(left: 16, right: 16, bottom: 4),
             child: Text(
@@ -283,7 +299,4 @@ class MovieDetail extends StatelessWidget {
       ),
     );
   }
-
-
-
 }
