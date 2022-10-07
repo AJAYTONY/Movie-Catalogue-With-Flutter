@@ -55,6 +55,7 @@ class _ReviewScreen2State extends State<ReviewScreen2> {
 
 reviewContainer(List<ReviewResults> review) {
   return ListView.builder(
+    physics: const NeverScrollableScrollPhysics(),
     shrinkWrap: true,
     scrollDirection: Axis.vertical,
     itemCount: review.length,
