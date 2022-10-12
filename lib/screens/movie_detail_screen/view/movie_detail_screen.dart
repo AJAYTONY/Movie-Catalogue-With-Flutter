@@ -8,6 +8,7 @@ import 'package:movie_catalouge_with_flutter/screens/movie_list_screen/view/Home
 import 'package:movie_catalouge_with_flutter/screens/movie_list_screen/view/movie_list_screen.dart';
 import 'package:movie_catalouge_with_flutter/screens/network_error.dart';
 import 'package:movie_catalouge_with_flutter/screens/review_screen/bloc/review_bloc.dart';
+import 'package:movie_catalouge_with_flutter/screens/similar_results_Screen/bloc/similar_result_bloc.dart';
 import 'package:movie_catalouge_with_flutter/widget/common_progress_bar.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -26,6 +27,8 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
   MovieDetailBloc? movieDetailBloc;
   CastCrewBloc? castCrewBloc;
   ReviewBloc? reviewBloc;
+  SimilarResultBloc? similarResultBloc;
+
 
 
 
@@ -40,6 +43,9 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
 
     reviewBloc = BlocProvider.of<ReviewBloc>(context);
     reviewBloc!.add(FetchReviewEvent(movieId: widget.movies.id.toString()));
+
+    similarResultBloc = BlocProvider.of<SimilarResultBloc>(context);
+    similarResultBloc!.add(FetchSimilarResultEvent(movieId: widget.movies.id.toString()));
 
 
   }

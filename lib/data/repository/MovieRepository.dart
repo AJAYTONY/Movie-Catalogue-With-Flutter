@@ -76,7 +76,7 @@ class MovieRepositoryImpl extends MovieRepository {
     if (response.statusCode == 200) {
       var data = json.decode(response.body);
 
-      debugPrint("cast crew model $data");
+      //debugPrint("cast crew model $data");
 
       CastOrCrewModel? castOrCrewModel =
           CastOrCrewModel.fromJson(data);
@@ -97,7 +97,7 @@ class MovieRepositoryImpl extends MovieRepository {
     if (response.statusCode == 200) {
       var data = json.decode(response.body);
 
-      debugPrint("Review Model $data");
+      //debugPrint("Review Model $data");
 
       List<ReviewResults>? reviewResult = ReviewModel.fromJson(data).results;
 
@@ -111,10 +111,9 @@ class MovieRepositoryImpl extends MovieRepository {
   @override
   Future<List<SimilarResults>?> getSimilarList(String movieId) async {
 
-    var response = await client.get(Uri.parse(
-        'https://api.themoviedb.org/3/movie/760161/similar?api_key=139ebb0ddadbbb89e5f868d4b6e8448a'));
     // var response = await client.get(Uri.parse(
-    //     '${ConstantConfig.baseUrl}movie/$movieId/similar?api_key=${ConstantConfig.api_key}'));
+    //     'https://api.themoviedb.org/3/movie/760161/similar?api_key=139ebb0ddadbbb89e5f868d4b6e8448a'));
+   var response = await client.get(Uri.parse('${ConstantConfig.baseUrl}movie/$movieId/similar?api_key=${ConstantConfig.api_key}'));
 
     if (response.statusCode == 200) {
       var data = json.decode(response.body);

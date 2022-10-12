@@ -15,13 +15,13 @@ class SimilarResultScreen extends StatefulWidget {
 }
 
 class _SimilarResultScreenState extends State<SimilarResultScreen> {
-  SimilarResultBloc? similarResultBloc;
+  //SimilarResultBloc? similarResultBloc;
 
   @override
   void initState() {
     super.initState();
-    similarResultBloc = BlocProvider.of<SimilarResultBloc>(context);
-    similarResultBloc!.add(FetchSimilarResultEvent(movieId: "760193"));
+    // similarResultBloc = BlocProvider.of<SimilarResultBloc>(context);
+    // similarResultBloc!.add(FetchSimilarResultEvent(movieId: "760193"));
   }
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,7 @@ class _SimilarResultScreenState extends State<SimilarResultScreen> {
             print("Ajay:: Loading Similar");
             return CircularProgressIndicator();
           } else if (state is SimilarResultLoadedState) {
-            print("Ajay:: Loaded Similar ${state.movieId![0].title}");
+            print("Ajay:: Loaded Similar ${state.movieId!.length}");
             return similarContainer(state.movieId!,width);
           } else if (state is SimilarResultErrorState) {
             print("Error Similar");
