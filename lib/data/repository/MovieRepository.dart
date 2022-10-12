@@ -33,8 +33,7 @@ class MovieRepositoryImpl extends MovieRepository {
 
     var response = await client.get(Uri.parse(
         '${ConstantConfig.baseUrl}movie/$movieTypes?api_key=${ConstantConfig.api_key}'));
-    // var response = await client.get(Uri.parse(
-    //     'https://api.themoviedb.org/3/movie/now_playing?api_key=139ebb0ddadbbb89e5f868d4b6e8448a'));
+
 
     if (response.statusCode == 200) {
       var data = json.decode(response.body);
@@ -71,9 +70,8 @@ class MovieRepositoryImpl extends MovieRepository {
 
   @override
   Future<CastOrCrewModel?> getCastOrCrew(String movieId) async {
-    var movieTypes = 'now_playing';
     var response = await client.get(Uri.parse(
-        'https://api.themoviedb.org/3/movie/760161/credits?api_key=139ebb0ddadbbb89e5f868d4b6e8448a'));
+        '${ConstantConfig.baseUrl}movie/$movieId/credits?api_key=${ConstantConfig.api_key}'));
 
     if (response.statusCode == 200) {
       var data = json.decode(response.body);
@@ -92,14 +90,14 @@ class MovieRepositoryImpl extends MovieRepository {
 
   @override
   Future<List<ReviewResults>?> getReviewList(String movieId) async {
-    //var response = await client.get(Uri.parse('${ConstantConfig.baseUrl}movie/$movieTypes?api_key=${ConstantConfig.api_key}'));
-    // var response = await client.get(Uri.parse(
-    //     '${ConstantConfig.baseUrl}movie/$movieId/reviews?api_key=${ConstantConfig.api_key}'));
+
     var response = await client.get(Uri.parse(
-        'https://api.themoviedb.org/3/movie/760161/reviews?api_key=139ebb0ddadbbb89e5f868d4b6e8448a'));
+        '${ConstantConfig.baseUrl}movie/$movieId/reviews?api_key=${ConstantConfig.api_key}'));
 
     if (response.statusCode == 200) {
       var data = json.decode(response.body);
+
+      debugPrint("Review Model $data");
 
       List<ReviewResults>? reviewResult = ReviewModel.fromJson(data).results;
 
@@ -112,14 +110,15 @@ class MovieRepositoryImpl extends MovieRepository {
 
   @override
   Future<List<SimilarResults>?> getSimilarList(String movieId) async {
-    //var response = await client.get(Uri.parse('${ConstantConfig.baseUrl}movie/$movieTypes?api_key=${ConstantConfig.api_key}'));
-    // var response = await client.get(Uri.parse(
-    //     '${ConstantConfig.baseUrl}movie/$movieId/reviews?api_key=${ConstantConfig.api_key}'));
+
     var response = await client.get(Uri.parse(
         'https://api.themoviedb.org/3/movie/760161/similar?api_key=139ebb0ddadbbb89e5f868d4b6e8448a'));
+    // var response = await client.get(Uri.parse(
+    //     '${ConstantConfig.baseUrl}movie/$movieId/similar?api_key=${ConstantConfig.api_key}'));
 
     if (response.statusCode == 200) {
       var data = json.decode(response.body);
+      debugPrint("Similar Results List $data");
 
       List<SimilarResults>? similarResult = SimilarResultModel.fromJson(data).results;
 

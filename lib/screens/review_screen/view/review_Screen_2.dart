@@ -19,8 +19,8 @@ class _ReviewScreen2State extends State<ReviewScreen2> {
 
   @override
   void initState() {
-    reviewBloc = BlocProvider.of<ReviewBloc>(context);
-    reviewBloc!.add(FetchReviewEvent(movieId: "760193"));
+    // reviewBloc = BlocProvider.of<ReviewBloc>(context);
+    // reviewBloc!.add(FetchReviewEvent(movieId: "760193"));
     super.initState();
   }
 
@@ -40,8 +40,8 @@ class _ReviewScreen2State extends State<ReviewScreen2> {
             print("Ajay:: Loading Review");
             return CircularProgressIndicator();
           } else if (state is ReviewLoadedState) {
-            print("Ajay:: Loaded Review ${state.review![0].id}");
-            return reviewContainer(state.review!);
+            print("Ajay:: Loaded Review ");
+            return reviewContainer(state.review!, context);
           } else if (state is ReviewErrorState) {
             print("Error Review");
             return Text("Feild to load !");
@@ -53,67 +53,74 @@ class _ReviewScreen2State extends State<ReviewScreen2> {
   }
 }
 
-reviewContainer(List<ReviewResults> review) {
-  return ListView.builder(
-    physics: const NeverScrollableScrollPhysics(),
-    shrinkWrap: true,
-    scrollDirection: Axis.vertical,
-    itemCount: review.length,
-    itemBuilder: (context, index) {
-      return Padding(
-        padding: EdgeInsets.only(left: 16, right: 16, top: 8),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Hero(
-            //   tag:
-            //   "https://image.tmdb.org/t/p/w1280${review[index].id}",
-            //   child: Container(
-            //     height: MediaQuery.of(context).size.height * 0.09,
-            //     color: Color(0xFF333333),
-            //     child: kIsWeb
-            //         ? Image.network(
-            //         "https://image.tmdb.org/t/p/w1280${review[index].authorDetails!.avatarPath}",
-            //         width: double.infinity,
-            //         fit: BoxFit.cover)
-            //         : CachedNetworkImage(
-            //       width: double.infinity,
-            //       imageUrl:
-            //       "https://image.tmdb.org/t/p/w1280${review[index].authorDetails!.avatarPath}",
-            //       fit: BoxFit.fill,
-            //     ),
-            //   ),
-            // ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                CircleAvatar(
-                  radius: 20.0,
-                  backgroundColor: Colors.black12,
-                  backgroundImage: NetworkImage(
-                      'https://image.tmdb.org/t/p/w1280${review[index].authorDetails!.avatarPath}'),
-                ),
-                SizedBox(
-                  width: 8,
-                ),
-                Txt(review[index].authorDetails!.username.toString(),
-                    color: Colors.white,
-                    fontWeight: FontWeight.w500,
-                    fontFamily: "Poppins-Bold",
-                    fontSize: MediaQuery.of(context).size.width * 0.04)
-              ],
-            ),
-            SizedBox(
-              width: 8,
-            ),
-            Txt(review[index].content.toString(),
-                color: Colors.grey.shade400,
-                fontWeight: FontWeight.w300,
-                fontFamily: "Poppins-Semibold",
-                fontSize: MediaQuery.of(context).size.width * 0.040)
-          ],
-        ),
-      );
-    },
-  );
+reviewContainer(List<ReviewResults> review, BuildContext context) {
+  print('Review length::  ${review.length}');
+  return review.isEmpty
+      ? Txt('    No Review Found ',
+      color: Colors.white,
+      fontWeight: FontWeight.w500,
+      fontFamily: "Poppins-Bold",
+      fontSize: MediaQuery.of(context).size.width * 0.04)
+      : ListView.builder(
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          scrollDirection: Axis.vertical,
+          itemCount: review.length,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: EdgeInsets.only(left: 16, right: 16, top: 8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Hero(
+                  //   tag:
+                  //   "https://image.tmdb.org/t/p/w1280${review[index].id}",
+                  //   child: Container(
+                  //     height: MediaQuery.of(context).size.height * 0.09,
+                  //     color: Color(0xFF333333),
+                  //     child: kIsWeb
+                  //         ? Image.network(
+                  //         "https://image.tmdb.org/t/p/w1280${review[index].authorDetails!.avatarPath}",
+                  //         width: double.infinity,
+                  //         fit: BoxFit.cover)
+                  //         : CachedNetworkImage(
+                  //       width: double.infinity,
+                  //       imageUrl:
+                  //       "https://image.tmdb.org/t/p/w1280${review[index].authorDetails!.avatarPath}",
+                  //       fit: BoxFit.fill,
+                  //     ),
+                  //   ),
+                  // ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      CircleAvatar(
+                        radius: 20.0,
+                        backgroundColor: Colors.grey,
+                        backgroundImage: NetworkImage(
+                            'https://image.tmdb.org/t/p/w1280${review[index].authorDetails!.avatarPath}'),
+                      ),
+                      SizedBox(
+                        width: 8,
+                      ),
+                      Txt(review[index].authorDetails!.username.toString(),
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                          fontFamily: "Poppins-Bold",
+                          fontSize: MediaQuery.of(context).size.width * 0.04)
+                    ],
+                  ),
+                  SizedBox(
+                    width: 8,
+                  ),
+                  Txt(review[index].content.toString(),
+                      color: Colors.grey.shade400,
+                      fontWeight: FontWeight.w300,
+                      fontFamily: "Poppins-Semibold",
+                      fontSize: MediaQuery.of(context).size.width * 0.040)
+                ],
+              ),
+            );
+          },
+        );
 }

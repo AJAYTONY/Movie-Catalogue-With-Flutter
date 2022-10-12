@@ -40,6 +40,8 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
 
     reviewBloc = BlocProvider.of<ReviewBloc>(context);
     reviewBloc!.add(FetchReviewEvent(movieId: widget.movies.id.toString()));
+
+
   }
 
   @override

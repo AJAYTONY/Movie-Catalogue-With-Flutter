@@ -85,10 +85,10 @@ class _MovieListScreenHomeState extends State<MovieListScreenHome> {
           color: Colors.white,
           iconSize: width * 0.08,
           onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (BuildContext context) {
-                  return SearchScreen();
-                }));
+            // Navigator.push(context,
+            //     MaterialPageRoute(builder: (BuildContext context) {
+            //       return SearchScreen();
+            //     }));
           },
         )
       ],
